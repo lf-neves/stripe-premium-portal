@@ -1,0 +1,11 @@
+type User {
+  userId: String
+}
+
+extend type Query {
+  users: [User]
+}
+
+extend type Mutation {
+  authenticateUser(email: String): User
+}
