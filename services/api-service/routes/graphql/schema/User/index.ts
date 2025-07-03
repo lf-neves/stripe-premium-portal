@@ -1,5 +1,3 @@
-import { generateApiJsonWebToken } from "authentication";
-
 export const userResolvers = {
   Query: {
     async users() {
@@ -8,6 +6,6 @@ export const userResolvers = {
   },
 
   Mutation: {
-    authenticateUser: async (_parent, { email }, context) => {},
+    authenticateUser: async () => {},
   },
 };

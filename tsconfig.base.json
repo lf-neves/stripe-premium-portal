@@ -14,13 +14,13 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": false,
     "resolveJsonModule": true,
-    "noErrorTruncation": true,
+    "noErrorTruncation": true
   },
   "exclude": [
     "**/node_modules",
     "**/build",
     "**/dist",
     "**/.webpack",
-    "**/.*/",
+    "**/.*/"
   ]
 }
