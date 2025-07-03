@@ -36,8 +36,6 @@ Built with:
 | ORM           | Sequelize           |
 | Auth          | JWT                 |
 | Payments      | Stripe              |
-| Deployment    | Vercel (frontend), Render/Railway (backend/db) |
-
 ---
 
 
