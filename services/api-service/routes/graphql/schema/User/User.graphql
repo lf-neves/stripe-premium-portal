@@ -1,11 +1,28 @@
 type User {
   userId: String
+  email: String
+  firstName: String
+  lastName: String
+  token: String
 }
 
 extend type Query {
   users: [User]
 }
 
+input CreateUserInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+}
+
+input AuthenticateUserInput {
+  email: String
+  password: String
+}
+
 extend type Mutation {
-  authenticateUser(email: String): User
+  createUser(input: CreateUserInput): User
+  authenticateUser(input: AuthenticateUserInput): User
 }
