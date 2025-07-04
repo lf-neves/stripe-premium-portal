@@ -26,8 +26,6 @@ export const userResolvers = {
         ...input,
       };
 
-      console.log("user", user);
-
       users.push(user);
 
       const userToken = generateApiJsonWebToken({

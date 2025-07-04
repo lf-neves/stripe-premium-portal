@@ -30,8 +30,6 @@ const { url } = await startStandaloneServer(server, {
 
     const user = verifyApiJsonWebToken(requestAuthorizationToken);
 
-    console.log("user", user);
-
     return { user };
   },
   listen: { port: 4000 },
