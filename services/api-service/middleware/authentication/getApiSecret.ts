@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const GRAPHQL_API_JWT_SECRET = process.env.GRAPHQL_API_JWT_SECRET;
 
 export function getApiSecret(): string {

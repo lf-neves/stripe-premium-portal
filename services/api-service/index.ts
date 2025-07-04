@@ -3,7 +3,8 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { resolvers } from "./routes/graphql/resolvers";
 import { typeDefs } from "./routes/graphql/typeDef";
 import { logger } from "lambda";
-import { verifyApiJsonWebToken } from "authentication";
+import { verifyApiJsonWebToken } from "middleware/authentication";
+import { GraphQLError } from "graphql";
 
 const server = new ApolloServer({
   typeDefs,
@@ -18,7 +19,18 @@ const { url } = await startStandaloneServer(server, {
       ""
     );
 
+    if (!requestAuthorizationToken) {
+      throw new GraphQLError("Authorization token is missing.", {
+        extensions: {
+          code: "UNAUTHENTICATED",
+          http: { status: 401 },
+        },
+      });
+    }
+
     const user = verifyApiJsonWebToken(requestAuthorizationToken);
+
+    console.log("user", user);
 
     return { user };
   },
