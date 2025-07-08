@@ -1,2 +1,12 @@
 type Query # {}
 type Mutation # {}
+# graphql-scalars
+scalar Date
+scalar DateTime
+scalar EmailAddress
+scalar PositiveInt
+scalar NonNegativeInt
+scalar NonPositiveInt
+scalar JSONObject
+scalar NonEmptyString
+scalar SafeInt

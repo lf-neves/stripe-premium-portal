@@ -11,15 +11,15 @@ extend type Query {
 }
 
 input CreateUserInput {
-  email: String
-  password: String
-  firstName: String
-  lastName: String
+  email: EmailAddress!
+  password: String!
+  firstName: String!
+  lastName: String!
 }
 
 input AuthenticateUserInput {
-  email: String
-  password: String
+  email: EmailAddress!
+  password: String!
 }
 
 extend type Mutation {
