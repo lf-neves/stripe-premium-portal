@@ -5,7 +5,7 @@ export function generateApiJsonWebToken({
   payload,
   expirationTimeInDays,
 }: {
-  payload: Record<string, object>;
+  payload: Record<string, string>;
   expirationTimeInDays?: number;
 }) {
   const options: jwt.SignOptions = {
