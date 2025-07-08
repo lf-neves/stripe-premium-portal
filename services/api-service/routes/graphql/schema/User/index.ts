@@ -1,12 +1,10 @@
 import { generateApiJsonWebToken } from "middleware/authentication";
-
-// TODO: Replace with database + ORM
-const users = [];
+import { prismaClient } from "database";
+import { hashPassword } from "modules/hashPassword";
+import { comparePassword } from "modules/comparePassword";
 
 /**
  * TODO:
- * - Add input validation
- * - Add password hashing
  * - Generate types automatically with graphql-codegen
  * - Add tests
  * - Add logging
@@ -15,18 +13,30 @@ const users = [];
 export const userResolvers = {
   Query: {
     async users() {
-      return [];
+      const users = await prismaClient.user.findMany();
+
+      return users;
     },
   },
 
   Mutation: {
     createUser: async (_parent, { input }) => {
-      const user = {
-        userId: "123",
-        ...input,
-      };
+      const existingUser = await prismaClient.user.findFirst({
+        where: { email: input.email },
+      });
 
-      users.push(user);
+      if (existingUser) {
+        throw new Error("User already exists.");
+      }
+
+      const user = await prismaClient.user.create({
+        data: {
+          email: input.email,
+          password: await hashPassword(input.password),
+          firstName: input.firstName,
+          lastName: input.lastName,
+        },
+      });
 
       const userToken = generateApiJsonWebToken({
         payload: { userId: user.userId },
@@ -39,11 +49,15 @@ export const userResolvers = {
     },
 
     authenticateUser: async (_parent, { input }) => {
-      const user = users.find((user) => user.email === input.email);
+      const user = await prismaClient.user.findFirst({
+        where: { email: input.email },
+      });
 
       if (!user) {
         throw new Error("User not found.");
       }
+
+      await comparePassword(input.password, user.password);
 
       const userToken = generateApiJsonWebToken({
         payload: { userId: user.userId },
