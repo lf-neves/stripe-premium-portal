@@ -1,22 +1,60 @@
-name: Lint
+name: lint
 
 on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "cli/**"
+      - "libs/**"
+      - "apps/**"
+      - "services/**"
   pull_request:
-    branches: [main]
+    paths:
+      - "cli/**"
+      - "libs/**"
+      - "apps/**"
+      - "services/**"
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-
-      - name: Use Node.js
+        with:
+          fetch-depth: 2
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run ESLint
-        run: pnpm run lint
+          node-version: 22.x
+      - uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            services/*/node_modules
+            apps/*/node_modules
+            libs/*/node_modules
+            ~/.pnpm-store
+          key: 4ebabb59dea4-${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('package.json') }}-${{ hashFiles('apps/*/package.json') }}-${{ hashFiles('services/*/package.json') }}-${{ hashFiles('libs/*/package.json') }}-${{ hashFiles('patches/*/*.patch') }}
+          restore-keys: |
+            4ebabb59dea4-${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('package.json') }}-${{ hashFiles('apps/*/package.json') }}-${{ hashFiles('services/*/package.json') }}-${{ hashFiles('libs/*/package.json') }}
+            4ebabb59dea4-${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('package.json') }}-${{ hashFiles('services/*/package.json') }}-${{ hashFiles('libs/*/package.json') }}
+            4ebabb59dea4-${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('package.json') }}-${{ hashFiles('services/*/package.json') }}
+            4ebabb59dea4-${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('package.json') }}
+            4ebabb59dea4-${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+            4ebabb59dea4-${{ runner.os }}-pnpm-
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install --frozen-lockfile
+      - name: register problem matcher
+        run: |
+          echo "::add-matcher::./.github/jest-runner-eslint.json"
+      - name: run lint on changed files
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          pnpm run lint --runInBand --changedSince origin/main
+      - name: run lint
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: pnpm run lint --runInBand
