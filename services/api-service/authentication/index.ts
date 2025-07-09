@@ -1,2 +1,2 @@
-export { verifyApiJsonWebToken } from "./verifyApiJsonWebToken";
 export { generateApiJsonWebToken } from "./generateApiJsonWebToken";
+export { verifyApiJsonWebToken } from "./verifyApiJsonWebToken";

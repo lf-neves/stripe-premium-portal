@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { logger } from "lambda";
+
 import { getApiSecret } from "./getApiSecret";
 
 export function verifyApiJsonWebToken(token: string) {

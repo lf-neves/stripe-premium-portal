@@ -1,8 +1,8 @@
 import { generateApiJsonWebToken } from "authentication";
 import { prismaClient } from "database";
-import { hashPassword } from "modules/hashPassword";
-import { comparePassword } from "modules/comparePassword";
 import { logger } from "lambda";
+import { comparePassword } from "modules/comparePassword";
+import { hashPassword } from "modules/hashPassword";
 import { Resolvers } from "routes/graphql/generatedTypes";
 
 /**
