@@ -1,14 +1,22 @@
 import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
 import json from "@eslint/json";
 import { defineConfig } from "eslint/config";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-    plugins: { js },
+    plugins: {
+      js,
+      "simple-import-sort": simpleImportSort,
+    },
     extends: ["js/recommended"],
+    rules: {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+    },
   },
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
@@ -39,6 +47,8 @@ export default defineConfig([
       "public",
       "app",
       "vendor",
+      "services/api-service/routes/graphql/generatedTypes.ts",
+      "libs/database/src/generated",
     ],
   },
 ]);
