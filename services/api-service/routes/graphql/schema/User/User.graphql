@@ -3,11 +3,6 @@ type User {
   email: String
   firstName: String
   lastName: String
-  token: String
-}
-
-extend type Query {
-  users: [User]
 }
 
 input CreateUserInput {
@@ -22,7 +17,16 @@ input AuthenticateUserInput {
   password: String!
 }
 
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+extend type Query {
+  me: User
+}
+
 extend type Mutation {
-  createUser(input: CreateUserInput): User
-  authenticateUser(input: AuthenticateUserInput): User
+  createUser(input: CreateUserInput!): AuthPayload
+  authenticateUser(input: AuthenticateUserInput!): AuthPayload
 }
