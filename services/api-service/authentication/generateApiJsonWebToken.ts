@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+
 import { getApiSecret } from "./getApiSecret";
 
 export function generateApiJsonWebToken({

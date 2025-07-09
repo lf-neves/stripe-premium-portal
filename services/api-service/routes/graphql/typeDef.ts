@@ -1,6 +1,6 @@
-import { fileURLToPath } from "url";
-import path from "path";
 import { loadFilesSync } from "@graphql-tools/load-files";
+import path from "path";
+import { fileURLToPath } from "url";
 
 // This gives you the current file's directory
 const __filename = fileURLToPath(import.meta.url);

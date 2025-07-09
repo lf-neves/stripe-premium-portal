@@ -1,12 +1,13 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { resolvers } from "./routes/graphql/resolvers";
-import { typeDefs } from "./routes/graphql/typeDef";
-import { logger } from "lambda";
 import { verifyApiJsonWebToken } from "authentication";
-import { GraphQLError } from "graphql";
 import { isUnauthenticatedGraphQLOperation } from "authentication/isUnauthenticatedGraphQLOperation";
 import dotenv from "dotenv";
+import { GraphQLError } from "graphql";
+import { logger } from "lambda";
+
+import { resolvers } from "./routes/graphql/resolvers";
+import { typeDefs } from "./routes/graphql/typeDef";
 
 dotenv.config();
 
@@ -16,8 +17,8 @@ const server = new ApolloServer({
 });
 
 const { url } = await startStandaloneServer(server, {
-  context: async ({ req, res }) => {
-    if (isUnauthenticatedGraphQLOperation((req as any).body.query)) {
+  context: async ({ req }) => {
+    if (isUnauthenticatedGraphQLOperation(req.body.query)) {
       logger.info(
         "Unauthenticated GraphQL operation. Will skip JWT authentication."
       );
