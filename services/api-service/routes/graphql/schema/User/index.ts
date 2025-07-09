@@ -1,21 +1,20 @@
-import { generateApiJsonWebToken } from "middleware/authentication";
+import { generateApiJsonWebToken } from "authentication";
 import { prismaClient } from "database";
 import { hashPassword } from "modules/hashPassword";
 import { comparePassword } from "modules/comparePassword";
+import { logger } from "lambda";
+import { Resolvers } from "routes/graphql/generatedTypes";
 
 /**
  * TODO:
  * - Generate types automatically with graphql-codegen
  * - Add tests
- * - Add logging
  */
 
-export const userResolvers = {
+export const userResolvers: Resolvers = {
   Query: {
-    async users() {
-      const users = await prismaClient.user.findMany();
-
-      return users;
+    async me(_parent, _args, context) {
+      return context.user;
     },
   },
 
@@ -29,10 +28,15 @@ export const userResolvers = {
         throw new Error("User already exists.");
       }
 
+      const hashedPassword = await hashPassword(input.password);
+
+      logger.info("Creating User: %s.", input.email);
+
+      // TODO: move this DB operation into a sql transaction
       const user = await prismaClient.user.create({
         data: {
           email: input.email,
-          password: await hashPassword(input.password),
+          password: hashedPassword,
           firstName: input.firstName,
           lastName: input.lastName,
         },
@@ -44,6 +48,7 @@ export const userResolvers = {
       });
 
       return {
+        user,
         token: userToken,
       };
     },
@@ -65,7 +70,7 @@ export const userResolvers = {
       });
 
       return {
-        ...user,
+        user,
         token: userToken,
       };
     },

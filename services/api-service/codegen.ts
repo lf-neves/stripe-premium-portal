@@ -1,14 +1,10 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  overwrite: true,
-  schema: "http://localhost:4000/api/graphql",
+  schema: "./routes/graphql/schema/**",
   generates: {
-    "src/routes/graphql": {
+    "routes/graphql/generatedTypes.ts": {
       plugins: ["typescript", "typescript-resolvers"],
-    },
-    "./graphql.schema.json": {
-      plugins: ["introspection"],
     },
   },
 };

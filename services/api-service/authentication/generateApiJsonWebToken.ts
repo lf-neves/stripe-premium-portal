@@ -9,7 +9,7 @@ export function generateApiJsonWebToken({
   expirationTimeInDays?: number;
 }) {
   const options: jwt.SignOptions = {
-    expiresIn: expirationTimeInDays ? `${expirationTimeInDays}d` : "7d",
+    expiresIn: expirationTimeInDays ? `${expirationTimeInDays}d` : "1d",
   };
 
   const apiSecret = getApiSecret();
