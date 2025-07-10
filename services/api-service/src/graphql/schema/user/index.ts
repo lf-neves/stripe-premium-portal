@@ -1,9 +1,10 @@
-import { generateApiJsonWebToken } from "authentication";
 import { prismaClient } from "database";
 import { logger } from "lambda";
-import { comparePassword } from "modules/comparePassword";
-import { hashPassword } from "modules/hashPassword";
-import { Resolvers } from "routes/graphql/generatedTypes";
+
+import { generateApiJsonWebToken } from "@/authentication";
+import { GraphQLResolvers } from "@/graphql/generatedTypes";
+import { comparePassword } from "@/modules/comparePassword";
+import { hashPassword } from "@/modules/hashPassword";
 
 /**
  * TODO:
@@ -11,7 +12,7 @@ import { Resolvers } from "routes/graphql/generatedTypes";
  * - Add tests
  */
 
-export const userResolvers: Resolvers = {
+export const userResolvers: GraphQLResolvers = {
   Query: {
     async me(_parent, _args, context) {
       return context.user;
