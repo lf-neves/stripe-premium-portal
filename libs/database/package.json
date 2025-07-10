@@ -18,7 +18,8 @@
     "prisma": "^6.11.1"
   },
   "dependencies": {
-    "@prisma/client": "^6.11.1"
+    "@prisma/client": "^6.11.1",
+    "uuid": "^11.1.0"
   },
   "prisma": {
     "schema": "./src/prisma"

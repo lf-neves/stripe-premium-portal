@@ -36,6 +36,13 @@ export default defineConfig([
     extends: ["json/recommended"],
   },
   {
+    files: ["tests/**/*"],
+    plugins: ["jest"],
+    env: {
+      "jest/globals": true,
+    },
+  },
+  {
     ignores: [
       "node_modules",
       "dist",
