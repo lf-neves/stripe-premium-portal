@@ -1,7 +1,7 @@
 import js from "@eslint/js";
 import json from "@eslint/json";
+import perfectionist from "eslint-plugin-perfectionist";
 import { defineConfig } from "eslint/config";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -10,12 +10,26 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     plugins: {
       js,
-      "simple-import-sort": simpleImportSort,
+      perfectionist,
     },
     extends: ["js/recommended"],
     rules: {
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
+      "perfectionist/sort-imports": [
+        "error",
+        {
+          groups: [["builtin", "external"], "internal"],
+          customGroups: [
+            {
+              elementNamePattern: "@/.*",
+              groupName: "internal",
+            },
+          ],
+        },
+      ],
+
+      "perfectionist/sort-exports": "error",
+      "perfectionist/sort-named-imports": "error",
+      "perfectionist/sort-named-exports": "error",
     },
   },
   {
@@ -36,6 +50,13 @@ export default defineConfig([
     extends: ["json/recommended"],
   },
   {
+    files: ["tests/**/*"],
+    plugins: ["jest"],
+    env: {
+      "jest/globals": true,
+    },
+  },
+  {
     ignores: [
       "node_modules",
       "dist",
@@ -47,7 +68,7 @@ export default defineConfig([
       "public",
       "app",
       "vendor",
-      "services/api-service/routes/graphql/generatedTypes.ts",
+      "services/api-service/src/graphql/generatedTypes.ts",
       "libs/database/src/generated",
     ],
   },

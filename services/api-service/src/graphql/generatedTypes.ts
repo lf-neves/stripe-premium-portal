@@ -25,46 +25,46 @@ export type Scalars = {
   SafeInt: { input: any; output: any; }
 };
 
-export type AuthPayload = {
+export type GraphQLAuthPayload = {
   __typename?: 'AuthPayload';
   token: Scalars['String']['output'];
-  user: User;
+  user: GraphQLUser;
 };
 
-export type AuthenticateUserInput = {
+export type GraphQLAuthenticateUserInput = {
   email: Scalars['EmailAddress']['input'];
   password: Scalars['String']['input'];
 };
 
-export type CreateUserInput = {
+export type GraphQLCreateUserInput = {
   email: Scalars['EmailAddress']['input'];
   firstName: Scalars['String']['input'];
   lastName: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };
 
-export type Mutation = {
+export type GraphQLMutation = {
   __typename?: 'Mutation';
-  authenticateUser?: Maybe<AuthPayload>;
-  createUser?: Maybe<AuthPayload>;
+  authenticateUser?: Maybe<GraphQLAuthPayload>;
+  createUser?: Maybe<GraphQLAuthPayload>;
 };
 
 
-export type MutationAuthenticateUserArgs = {
-  input: AuthenticateUserInput;
+export type GraphQLMutationAuthenticateUserArgs = {
+  input: GraphQLAuthenticateUserInput;
 };
 
 
-export type MutationCreateUserArgs = {
-  input: CreateUserInput;
+export type GraphQLMutationCreateUserArgs = {
+  input: GraphQLCreateUserInput;
 };
 
-export type Query = {
+export type GraphQLQuery = {
   __typename?: 'Query';
-  me?: Maybe<User>;
+  me?: Maybe<GraphQLUser>;
 };
 
-export type User = {
+export type GraphQLUser = {
   __typename?: 'User';
   email?: Maybe<Scalars['String']['output']>;
   firstName?: Maybe<Scalars['String']['output']>;
@@ -142,11 +142,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 
 /** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = {
-  AuthPayload: ResolverTypeWrapper<AuthPayload>;
-  AuthenticateUserInput: AuthenticateUserInput;
+export type GraphQLResolversTypes = {
+  AuthPayload: ResolverTypeWrapper<GraphQLAuthPayload>;
+  AuthenticateUserInput: GraphQLAuthenticateUserInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  CreateUserInput: CreateUserInput;
+  CreateUserInput: GraphQLCreateUserInput;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>;
@@ -159,15 +159,15 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   SafeInt: ResolverTypeWrapper<Scalars['SafeInt']['output']>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<GraphQLUser>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = {
-  AuthPayload: AuthPayload;
-  AuthenticateUserInput: AuthenticateUserInput;
+export type GraphQLResolversParentTypes = {
+  AuthPayload: GraphQLAuthPayload;
+  AuthenticateUserInput: GraphQLAuthenticateUserInput;
   Boolean: Scalars['Boolean']['output'];
-  CreateUserInput: CreateUserInput;
+  CreateUserInput: GraphQLCreateUserInput;
   Date: Scalars['Date']['output'];
   DateTime: Scalars['DateTime']['output'];
   EmailAddress: Scalars['EmailAddress']['output'];
@@ -180,81 +180,81 @@ export type ResolversParentTypes = {
   Query: {};
   SafeInt: Scalars['SafeInt']['output'];
   String: Scalars['String']['output'];
-  User: User;
+  User: GraphQLUser;
 };
 
-export type AuthPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthPayload'] = ResolversParentTypes['AuthPayload']> = {
-  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+export type GraphQLAuthPayloadResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['AuthPayload'] = GraphQLResolversParentTypes['AuthPayload']> = {
+  token?: Resolver<GraphQLResolversTypes['String'], ParentType, ContextType>;
+  user?: Resolver<GraphQLResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+export interface GraphQLDateScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['Date'], any> {
   name: 'Date';
 }
 
-export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+export interface GraphQLDateTimeScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
 
-export interface EmailAddressScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['EmailAddress'], any> {
+export interface GraphQLEmailAddressScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['EmailAddress'], any> {
   name: 'EmailAddress';
 }
 
-export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSONObject'], any> {
+export interface GraphQLJsonObjectScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['JSONObject'], any> {
   name: 'JSONObject';
 }
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  authenticateUser?: Resolver<Maybe<ResolversTypes['AuthPayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateUserArgs, 'input'>>;
-  createUser?: Resolver<Maybe<ResolversTypes['AuthPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+export type GraphQLMutationResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['Mutation'] = GraphQLResolversParentTypes['Mutation']> = {
+  authenticateUser?: Resolver<Maybe<GraphQLResolversTypes['AuthPayload']>, ParentType, ContextType, RequireFields<GraphQLMutationAuthenticateUserArgs, 'input'>>;
+  createUser?: Resolver<Maybe<GraphQLResolversTypes['AuthPayload']>, ParentType, ContextType, RequireFields<GraphQLMutationCreateUserArgs, 'input'>>;
 };
 
-export interface NonEmptyStringScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['NonEmptyString'], any> {
+export interface GraphQLNonEmptyStringScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['NonEmptyString'], any> {
   name: 'NonEmptyString';
 }
 
-export interface NonNegativeIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['NonNegativeInt'], any> {
+export interface GraphQLNonNegativeIntScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['NonNegativeInt'], any> {
   name: 'NonNegativeInt';
 }
 
-export interface NonPositiveIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['NonPositiveInt'], any> {
+export interface GraphQLNonPositiveIntScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['NonPositiveInt'], any> {
   name: 'NonPositiveInt';
 }
 
-export interface PositiveIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['PositiveInt'], any> {
+export interface GraphQLPositiveIntScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['PositiveInt'], any> {
   name: 'PositiveInt';
 }
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+export type GraphQLQueryResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['Query'] = GraphQLResolversParentTypes['Query']> = {
+  me?: Resolver<Maybe<GraphQLResolversTypes['User']>, ParentType, ContextType>;
 };
 
-export interface SafeIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['SafeInt'], any> {
+export interface GraphQLSafeIntScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['SafeInt'], any> {
   name: 'SafeInt';
 }
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  userId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+export type GraphQLUserResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['User'] = GraphQLResolversParentTypes['User']> = {
+  email?: Resolver<Maybe<GraphQLResolversTypes['String']>, ParentType, ContextType>;
+  firstName?: Resolver<Maybe<GraphQLResolversTypes['String']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<GraphQLResolversTypes['String']>, ParentType, ContextType>;
+  userId?: Resolver<Maybe<GraphQLResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Resolvers<ContextType = any> = {
-  AuthPayload?: AuthPayloadResolvers<ContextType>;
+export type GraphQLResolvers<ContextType = any> = {
+  AuthPayload?: GraphQLAuthPayloadResolvers<ContextType>;
   Date?: GraphQLScalarType;
   DateTime?: GraphQLScalarType;
   EmailAddress?: GraphQLScalarType;
   JSONObject?: GraphQLScalarType;
-  Mutation?: MutationResolvers<ContextType>;
+  Mutation?: GraphQLMutationResolvers<ContextType>;
   NonEmptyString?: GraphQLScalarType;
   NonNegativeInt?: GraphQLScalarType;
   NonPositiveInt?: GraphQLScalarType;
   PositiveInt?: GraphQLScalarType;
-  Query?: QueryResolvers<ContextType>;
+  Query?: GraphQLQueryResolvers<ContextType>;
   SafeInt?: GraphQLScalarType;
-  User?: UserResolvers<ContextType>;
+  User?: GraphQLUserResolvers<ContextType>;
 };
 
