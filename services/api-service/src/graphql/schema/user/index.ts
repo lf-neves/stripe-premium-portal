@@ -6,12 +6,6 @@ import { GraphQLResolvers } from "@/graphql/generatedTypes";
 import { comparePassword } from "@/modules/comparePassword";
 import { hashPassword } from "@/modules/hashPassword";
 
-/**
- * TODO:
- * - Generate types automatically with graphql-codegen
- * - Add tests
- */
-
 export const userResolvers: GraphQLResolvers = {
   Query: {
     async me(_parent, _args, context) {

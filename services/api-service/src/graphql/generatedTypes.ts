@@ -25,6 +25,36 @@ export type Scalars = {
   SafeInt: { input: any; output: any; }
 };
 
+export type GraphQLArticle = {
+  __typename?: 'Article';
+  articleId: Scalars['ID']['output'];
+  category: GraphQLArticleCategory;
+  content: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  type: GraphQLArticleType;
+};
+
+export enum GraphQLArticleCategory {
+  Business = 'business',
+  Entertainment = 'entertainment',
+  Health = 'health',
+  Science = 'science',
+  Sports = 'sports',
+  Technology = 'technology'
+}
+
+export enum GraphQLArticleType {
+  Free = 'free',
+  Premium = 'premium'
+}
+
+export type GraphQLArticlesInput = {
+  category?: InputMaybe<GraphQLArticleCategory>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<GraphQLArticleType>;
+};
+
 export type GraphQLAuthPayload = {
   __typename?: 'AuthPayload';
   token: Scalars['String']['output'];
@@ -34,6 +64,13 @@ export type GraphQLAuthPayload = {
 export type GraphQLAuthenticateUserInput = {
   email: Scalars['EmailAddress']['input'];
   password: Scalars['String']['input'];
+};
+
+export type GraphQLCreateArticleInput = {
+  category: GraphQLArticleCategory;
+  content: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  type: GraphQLArticleType;
 };
 
 export type GraphQLCreateUserInput = {
@@ -46,7 +83,10 @@ export type GraphQLCreateUserInput = {
 export type GraphQLMutation = {
   __typename?: 'Mutation';
   authenticateUser?: Maybe<GraphQLAuthPayload>;
+  createArticle: GraphQLArticle;
   createUser?: Maybe<GraphQLAuthPayload>;
+  deleteArticle: Scalars['Boolean']['output'];
+  updateArticle: GraphQLArticle;
 };
 
 
@@ -55,13 +95,54 @@ export type GraphQLMutationAuthenticateUserArgs = {
 };
 
 
+export type GraphQLMutationCreateArticleArgs = {
+  input: GraphQLCreateArticleInput;
+};
+
+
 export type GraphQLMutationCreateUserArgs = {
   input: GraphQLCreateUserInput;
 };
 
+
+export type GraphQLMutationDeleteArticleArgs = {
+  articleId: Scalars['ID']['input'];
+};
+
+
+export type GraphQLMutationUpdateArticleArgs = {
+  input: GraphQLUpdateArticleInput;
+};
+
+export type GraphQLMutationResponse = {
+  code: Scalars['String']['output'];
+  message: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+};
+
 export type GraphQLQuery = {
   __typename?: 'Query';
+  article: GraphQLArticle;
+  articles: Array<Maybe<GraphQLArticle>>;
   me?: Maybe<GraphQLUser>;
+};
+
+
+export type GraphQLQueryArticleArgs = {
+  articleId: Scalars['ID']['input'];
+};
+
+
+export type GraphQLQueryArticlesArgs = {
+  input?: InputMaybe<GraphQLArticlesInput>;
+};
+
+export type GraphQLUpdateArticleInput = {
+  articleId: Scalars['ID']['input'];
+  category?: InputMaybe<GraphQLArticleCategory>;
+  content?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<GraphQLArticleType>;
 };
 
 export type GraphQLUser = {
@@ -69,7 +150,7 @@ export type GraphQLUser = {
   email?: Maybe<Scalars['String']['output']>;
   firstName?: Maybe<Scalars['String']['output']>;
   lastName?: Maybe<Scalars['String']['output']>;
-  userId?: Maybe<Scalars['String']['output']>;
+  userId: Scalars['ID']['output'];
 };
 
 
@@ -140,18 +221,30 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 
+/** Mapping of interface types */
+export type GraphQLResolversInterfaceTypes<_RefType extends Record<string, unknown>> = {
+  MutationResponse: never;
+};
 
 /** Mapping between all available schema types and the resolvers types */
 export type GraphQLResolversTypes = {
+  Article: ResolverTypeWrapper<GraphQLArticle>;
+  ArticleCategory: GraphQLArticleCategory;
+  ArticleType: GraphQLArticleType;
+  ArticlesInput: GraphQLArticlesInput;
   AuthPayload: ResolverTypeWrapper<GraphQLAuthPayload>;
   AuthenticateUserInput: GraphQLAuthenticateUserInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  CreateArticleInput: GraphQLCreateArticleInput;
   CreateUserInput: GraphQLCreateUserInput;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   JSONObject: ResolverTypeWrapper<Scalars['JSONObject']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  MutationResponse: ResolverTypeWrapper<GraphQLResolversInterfaceTypes<GraphQLResolversTypes>['MutationResponse']>;
   NonEmptyString: ResolverTypeWrapper<Scalars['NonEmptyString']['output']>;
   NonNegativeInt: ResolverTypeWrapper<Scalars['NonNegativeInt']['output']>;
   NonPositiveInt: ResolverTypeWrapper<Scalars['NonPositiveInt']['output']>;
@@ -159,20 +252,27 @@ export type GraphQLResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   SafeInt: ResolverTypeWrapper<Scalars['SafeInt']['output']>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  UpdateArticleInput: GraphQLUpdateArticleInput;
   User: ResolverTypeWrapper<GraphQLUser>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type GraphQLResolversParentTypes = {
+  Article: GraphQLArticle;
+  ArticlesInput: GraphQLArticlesInput;
   AuthPayload: GraphQLAuthPayload;
   AuthenticateUserInput: GraphQLAuthenticateUserInput;
   Boolean: Scalars['Boolean']['output'];
+  CreateArticleInput: GraphQLCreateArticleInput;
   CreateUserInput: GraphQLCreateUserInput;
   Date: Scalars['Date']['output'];
   DateTime: Scalars['DateTime']['output'];
   EmailAddress: Scalars['EmailAddress']['output'];
+  ID: Scalars['ID']['output'];
+  Int: Scalars['Int']['output'];
   JSONObject: Scalars['JSONObject']['output'];
   Mutation: {};
+  MutationResponse: GraphQLResolversInterfaceTypes<GraphQLResolversParentTypes>['MutationResponse'];
   NonEmptyString: Scalars['NonEmptyString']['output'];
   NonNegativeInt: Scalars['NonNegativeInt']['output'];
   NonPositiveInt: Scalars['NonPositiveInt']['output'];
@@ -180,7 +280,17 @@ export type GraphQLResolversParentTypes = {
   Query: {};
   SafeInt: Scalars['SafeInt']['output'];
   String: Scalars['String']['output'];
+  UpdateArticleInput: GraphQLUpdateArticleInput;
   User: GraphQLUser;
+};
+
+export type GraphQLArticleResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['Article'] = GraphQLResolversParentTypes['Article']> = {
+  articleId?: Resolver<GraphQLResolversTypes['ID'], ParentType, ContextType>;
+  category?: Resolver<GraphQLResolversTypes['ArticleCategory'], ParentType, ContextType>;
+  content?: Resolver<GraphQLResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<GraphQLResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<GraphQLResolversTypes['ArticleType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type GraphQLAuthPayloadResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['AuthPayload'] = GraphQLResolversParentTypes['AuthPayload']> = {
@@ -207,7 +317,17 @@ export interface GraphQLJsonObjectScalarConfig extends GraphQLScalarTypeConfig<G
 
 export type GraphQLMutationResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['Mutation'] = GraphQLResolversParentTypes['Mutation']> = {
   authenticateUser?: Resolver<Maybe<GraphQLResolversTypes['AuthPayload']>, ParentType, ContextType, RequireFields<GraphQLMutationAuthenticateUserArgs, 'input'>>;
+  createArticle?: Resolver<GraphQLResolversTypes['Article'], ParentType, ContextType, RequireFields<GraphQLMutationCreateArticleArgs, 'input'>>;
   createUser?: Resolver<Maybe<GraphQLResolversTypes['AuthPayload']>, ParentType, ContextType, RequireFields<GraphQLMutationCreateUserArgs, 'input'>>;
+  deleteArticle?: Resolver<GraphQLResolversTypes['Boolean'], ParentType, ContextType, RequireFields<GraphQLMutationDeleteArticleArgs, 'articleId'>>;
+  updateArticle?: Resolver<GraphQLResolversTypes['Article'], ParentType, ContextType, RequireFields<GraphQLMutationUpdateArticleArgs, 'input'>>;
+};
+
+export type GraphQLMutationResponseResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['MutationResponse'] = GraphQLResolversParentTypes['MutationResponse']> = {
+  __resolveType: TypeResolveFn<null, ParentType, ContextType>;
+  code?: Resolver<GraphQLResolversTypes['String'], ParentType, ContextType>;
+  message?: Resolver<GraphQLResolversTypes['String'], ParentType, ContextType>;
+  success?: Resolver<GraphQLResolversTypes['Boolean'], ParentType, ContextType>;
 };
 
 export interface GraphQLNonEmptyStringScalarConfig extends GraphQLScalarTypeConfig<GraphQLResolversTypes['NonEmptyString'], any> {
@@ -227,6 +347,8 @@ export interface GraphQLPositiveIntScalarConfig extends GraphQLScalarTypeConfig<
 }
 
 export type GraphQLQueryResolvers<ContextType = any, ParentType extends GraphQLResolversParentTypes['Query'] = GraphQLResolversParentTypes['Query']> = {
+  article?: Resolver<GraphQLResolversTypes['Article'], ParentType, ContextType, RequireFields<GraphQLQueryArticleArgs, 'articleId'>>;
+  articles?: Resolver<Array<Maybe<GraphQLResolversTypes['Article']>>, ParentType, ContextType, Partial<GraphQLQueryArticlesArgs>>;
   me?: Resolver<Maybe<GraphQLResolversTypes['User']>, ParentType, ContextType>;
 };
 
@@ -238,17 +360,19 @@ export type GraphQLUserResolvers<ContextType = any, ParentType extends GraphQLRe
   email?: Resolver<Maybe<GraphQLResolversTypes['String']>, ParentType, ContextType>;
   firstName?: Resolver<Maybe<GraphQLResolversTypes['String']>, ParentType, ContextType>;
   lastName?: Resolver<Maybe<GraphQLResolversTypes['String']>, ParentType, ContextType>;
-  userId?: Resolver<Maybe<GraphQLResolversTypes['String']>, ParentType, ContextType>;
+  userId?: Resolver<GraphQLResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type GraphQLResolvers<ContextType = any> = {
+  Article?: GraphQLArticleResolvers<ContextType>;
   AuthPayload?: GraphQLAuthPayloadResolvers<ContextType>;
   Date?: GraphQLScalarType;
   DateTime?: GraphQLScalarType;
   EmailAddress?: GraphQLScalarType;
   JSONObject?: GraphQLScalarType;
   Mutation?: GraphQLMutationResolvers<ContextType>;
+  MutationResponse?: GraphQLMutationResponseResolvers<ContextType>;
   NonEmptyString?: GraphQLScalarType;
   NonNegativeInt?: GraphQLScalarType;
   NonPositiveInt?: GraphQLScalarType;
