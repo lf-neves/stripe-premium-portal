@@ -1,3 +1,4 @@
+import { hashPassword } from "core";
 import { prismaClient } from "database";
 import gql from "graphql-tag";
 import { faker, setupTestData, TestData } from "testing/server";
@@ -59,13 +60,24 @@ describe("User", () => {
     });
 
     test("returns a JWT token if the provided email and password are correct", async () => {
+      const newPassword = faker.internet.password();
+
+      await prismaClient.user.update({
+        where: {
+          userId: testData.user.userId,
+        },
+        data: {
+          password: await hashPassword(newPassword),
+        },
+      });
+
       // act
       const result = await mutate<GraphQLMutationAuthenticateUserArgs>({
         queryDocument: authenticateUserMutationDocument,
         variables: {
           input: {
             email: testData.user.email,
-            password: testData.userDecryptedPassword,
+            password: newPassword,
           },
         },
       });

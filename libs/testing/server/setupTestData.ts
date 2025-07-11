@@ -15,5 +15,5 @@ export async function setupTestData() {
     },
   });
 
-  return { user, userDecryptedPassword: password };
+  return { user };
 }

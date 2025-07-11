@@ -101,9 +101,6 @@ importers:
       '@prisma/client':
         specifier: ^6.11.1
         version: 6.11.1(prisma@6.11.1(typescript@5.8.3))(typescript@5.8.3)
-      uuid:
-        specifier: ^11.1.0
-        version: 11.1.0
     devDependencies:
       '@types/node':
         specifier: ^24.0.10
@@ -4639,10 +4636,6 @@ packages:
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
-
-  uuid@11.1.0:
-    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
-    hasBin: true
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
@@ -10099,8 +10092,6 @@ snapshots:
       inherits: 2.0.3
 
   utils-merge@1.0.1: {}
-
-  uuid@11.1.0: {}
 
   uuid@9.0.1: {}
 
