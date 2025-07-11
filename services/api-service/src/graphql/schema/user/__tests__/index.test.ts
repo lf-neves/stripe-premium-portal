@@ -1,11 +1,12 @@
+import { prismaClient } from "database";
 import gql from "graphql-tag";
-import { mutate } from "@/test-utils/graphqlTestClient";
 import { faker, setupTestData, TestData } from "testing/server";
+
 import {
   GraphQLMutationAuthenticateUserArgs,
   GraphQLMutationCreateUserArgs,
 } from "@/graphql/generatedTypes";
-import { prismaClient } from "database";
+import { mutate } from "@/test-utils/graphqlTestClient";
 
 describe("User", () => {
   let testData: TestData;

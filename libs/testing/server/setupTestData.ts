@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { prismaClient } from "database";
 import { hashPassword } from "core";
+import { prismaClient } from "database";
 
 export async function setupTestData() {
   const password = faker.internet.password();

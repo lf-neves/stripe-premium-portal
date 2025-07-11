@@ -1,8 +1,8 @@
 // jest.config.mjs
 import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
 import path from "path";
 import { pathsToModuleNameMapper } from "ts-jest";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

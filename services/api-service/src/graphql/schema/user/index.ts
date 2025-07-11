@@ -1,9 +1,10 @@
-import { generateApiJsonWebToken } from "@/authentication";
 import { prismaClient } from "database";
 import { logger } from "lambda";
+
+import { generateApiJsonWebToken } from "@/authentication";
+import { GraphQLResolvers } from "@/graphql/generatedTypes";
 import { comparePassword } from "@/modules/comparePassword";
 import { hashPassword } from "@/modules/hashPassword";
-import { GraphQLResolvers } from "@/graphql/generatedTypes";
 
 /**
  * TODO:

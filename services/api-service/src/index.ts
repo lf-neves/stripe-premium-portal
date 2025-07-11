@@ -1,20 +1,20 @@
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import { expressMiddleware } from "@as-integrations/express5";
+import cors from "cors";
+import { prismaClient } from "database";
+import dotenv from "dotenv";
+import express from "express";
+import { GraphQLError } from "graphql";
+import http from "http";
+import { logger } from "lambda";
+
 import { verifyApiJsonWebToken } from "@/authentication";
 import { isUnauthenticatedGraphQLOperation } from "@/authentication/isUnauthenticatedGraphQLOperation";
-import dotenv from "dotenv";
-import { GraphQLError } from "graphql";
-import { logger } from "lambda";
-import express from "express";
-import http from "http";
-import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
-import cors from "cors";
-
 import { resolvers } from "@/graphql/resolvers";
 import { typeDefs } from "@/graphql/typeDef";
-import { expressMiddleware } from "@as-integrations/express5";
+
 import { GraphQLUser } from "./graphql/generatedTypes";
-import { prismaClient } from "database";
 
 dotenv.config();
 

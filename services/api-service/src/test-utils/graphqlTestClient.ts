@@ -1,7 +1,7 @@
-import { request } from "testing/server";
 import { GraphQLResponse as BaseGraphQLResponse } from "@apollo/server";
-
 import { DocumentNode, print } from "graphql";
+import { request } from "testing/server";
+
 import { app } from "..";
 
 type RunQueryArgs<TVariables> = {

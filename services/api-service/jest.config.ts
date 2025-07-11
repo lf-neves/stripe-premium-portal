@@ -1,7 +1,7 @@
-import type { Config } from "jest";
-import { pathsToModuleNameMapper } from "ts-jest";
 import { readFileSync } from "fs";
+import type { Config } from "jest";
 import path from "path";
+import { pathsToModuleNameMapper } from "ts-jest";
 
 // Assume tsconfig.json is in the same folder as this config file
 const tsconfig = JSON.parse(
