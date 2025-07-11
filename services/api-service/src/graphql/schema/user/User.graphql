@@ -1,5 +1,5 @@
 type User {
-  userId: String
+  userId: ID!
   email: String
   firstName: String
   lastName: String

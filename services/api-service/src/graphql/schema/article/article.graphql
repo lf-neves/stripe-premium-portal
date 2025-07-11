@@ -1,0 +1,54 @@
+enum ArticleType {
+  premium
+  free
+}
+
+enum ArticleCategory {
+  technology
+  science
+  business
+  entertainment
+  health
+  sports
+}
+
+type Article {
+  articleId: ID!
+  title: String!
+  content: String!
+  type: ArticleType!
+  category: ArticleCategory!
+}
+
+input ArticlesInput {
+  type: ArticleType
+  category: ArticleCategory
+  page: Int
+  limit: Int
+}
+
+input CreateArticleInput {
+  title: String!
+  content: String!
+  type: ArticleType!
+  category: ArticleCategory!
+}
+
+input UpdateArticleInput {
+  articleId: ID!
+  title: String
+  content: String
+  type: ArticleType
+  category: ArticleCategory
+}
+
+extend type Query {
+  article(articleId: ID!): Article!
+  articles(input: ArticlesInput): [Article]!
+}
+
+extend type Mutation {
+  createArticle(input: CreateArticleInput!): Article!
+  updateArticle(input: UpdateArticleInput!): Article!
+  deleteArticle(articleId: ID!): Boolean!
+}

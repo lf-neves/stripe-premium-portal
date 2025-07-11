@@ -10,3 +10,9 @@ scalar NonPositiveInt
 scalar JSONObject
 scalar NonEmptyString
 scalar SafeInt
+
+interface MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+}

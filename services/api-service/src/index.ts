@@ -6,6 +6,7 @@ import { prismaClient } from "database";
 import dotenv from "dotenv";
 import express from "express";
 import { GraphQLError } from "graphql";
+import helmet from "helmet";
 import http from "http";
 import { logger } from "lambda";
 
@@ -33,6 +34,7 @@ async function setupApolloServer() {
 
   app.use(
     "/",
+    helmet(),
     cors(),
     express.json(),
     expressMiddleware(apolloServer, {

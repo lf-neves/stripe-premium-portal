@@ -7,7 +7,7 @@ Built with:
 - 🔷 Next.js (Frontend)
 - 🟩 Node.js & API routes (Backend)
 - 🐘 PostgreSQL (Database)
-- 📦 Sequelize (ORM)
+- 📦 Prisma (ORM)
 - 💳 Stripe (Payments & Billing)
 
 ---
@@ -28,14 +28,13 @@ Built with:
 
 ## 🧪 Tech Stack
 
-| Layer         | Tech                |
-|---------------|---------------------|
-| Frontend      | Next.js             |
-| Backend       | Node.js + API Routes|
-| Database      | PostgreSQL          |
-| ORM           | Sequelize           |
-| Auth          | JWT                 |
-| Payments      | Stripe              |
+| Layer    | Tech                 |
+| -------- | -------------------- |
+| Frontend | Next.js              |
+| Backend  | Node.js + API Routes |
+| Database | PostgreSQL           |
+| ORM      | Prisma               |
+| Auth     | JWT                  |
+| Payments | Stripe               |
+
 ---
-
-

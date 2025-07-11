@@ -120,6 +120,16 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.ArticleScalarFieldEnum = {
+  articleId: 'articleId',
+  title: 'title',
+  content: 'content',
+  type: 'type',
+  category: 'category',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   userId: 'userId',
   email: 'email',
@@ -139,9 +149,22 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.ArticleType = exports.$Enums.ArticleType = {
+  premium: 'premium',
+  free: 'free'
+};
 
+exports.ArticleCategory = exports.$Enums.ArticleCategory = {
+  technology: 'technology',
+  science: 'science',
+  business: 'business',
+  entertainment: 'entertainment',
+  health: 'health',
+  sports: 'sports'
+};
 
 exports.Prisma.ModelName = {
+  Article: 'Article',
   User: 'User'
 };
 
